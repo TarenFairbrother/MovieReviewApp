@@ -6,6 +6,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class DBMovieReviews extends SQLiteOpenHelper {
 
     // Database Version
@@ -20,8 +23,10 @@ public class DBMovieReviews extends SQLiteOpenHelper {
     private static final String Movie_Review = "MovieReview";
     private static final String Rating = "Rating";
 
-    public DBHandler(Context context) {
-        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+
+    public DBHelper(Context context) {
+         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+
     }
 
     @Override
@@ -71,6 +76,34 @@ public class DBMovieReviews extends SQLiteOpenHelper {
                 cursor.getLong(1), Integer.parseInt(cursor.getString(2)));
 
         return movie;
+
+    }
+
+    public List<Movie> getAllReviews(){
+
+        List<Movie> reviewList = new ArrayList<Movie>();
+
+        String selectQuery = "SELECT * FROM "  + Table_Movies;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if (cursor.moveToFirst()) {
+            do{
+                Movie review = new Movie();
+
+                review.setTitle(cursor.getString(0));
+                review.setDescription(cursor.getLong(1));
+                review.setRating(Integer.parseInt(cursor.getString(2)));
+
+                reviewList.add(review);
+
+            } while (cursor.moveToNext());
+
+        }
+
+        return reviewList;
 
     }
 

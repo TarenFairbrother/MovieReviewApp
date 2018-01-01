@@ -14,6 +14,8 @@ public class Movie {
 
     Integer rating;
 
+    public Movie(){}
+
     public Movie(String title, Long description, Integer rating) {
         this.title = title;
         this.description = description;
