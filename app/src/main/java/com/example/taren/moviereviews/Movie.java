@@ -10,13 +10,13 @@ public class Movie {
 
     String title;
 
-    Long description;
+    String description;
 
     Integer rating;
 
     public Movie(){}
 
-    public Movie(String title, Long description, Integer rating) {
+    public Movie(String title, String description, Integer rating) {
         this.title = title;
         this.description = description;
         this.rating = rating;
@@ -26,7 +26,7 @@ public class Movie {
         return title;
     }
 
-    public Long getDescription() {
+    public String getDescription() {
         return description;
     }
 
@@ -38,7 +38,7 @@ public class Movie {
         this.title = title;
     }
 
-    public void setDescription(Long description) {
+    public void setDescription(String description) {
         this.description = description;
     }
 

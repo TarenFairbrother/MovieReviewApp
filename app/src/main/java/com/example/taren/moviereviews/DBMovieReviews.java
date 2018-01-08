@@ -24,16 +24,15 @@ public class DBMovieReviews extends SQLiteOpenHelper {
     private static final String Rating = "Rating";
 
 
-    public DBHelper(Context context) {
-         super(context, DATABASE_NAME, null, DATABASE_VERSION);
-
+    public DBMovieReviews(Context context) {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
         String CREATE_CONTACTS_TABLE = "CREATE TABLE " + Table_Movies + "("
-        + KEY_ID + " INTEGER PRIMARY KEY," + MovieTitle + " TEXT,"
-        + Movie_Review + " TEXT " + Rating + "INTEGER" + ")";
+        + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + MovieTitle + " TEXT,"
+        + Movie_Review + " TEXT," + Rating + " INTEGER" + ")";
         db.execSQL(CREATE_CONTACTS_TABLE);
     }
     @Override
@@ -73,7 +72,7 @@ public class DBMovieReviews extends SQLiteOpenHelper {
             cursor.moveToFirst();
 
         Movie movie = new Movie(cursor.getString(0),
-                cursor.getLong(1), Integer.parseInt(cursor.getString(2)));
+                cursor.getString(1), Integer.parseInt(cursor.getString(2)));
 
         return movie;
 
@@ -93,9 +92,9 @@ public class DBMovieReviews extends SQLiteOpenHelper {
             do{
                 Movie review = new Movie();
 
-                review.setTitle(cursor.getString(0));
-                review.setDescription(cursor.getLong(1));
-                review.setRating(Integer.parseInt(cursor.getString(2)));
+                review.setTitle(cursor.getString(1));
+                review.setDescription(cursor.getString(2));
+                review.setRating(Integer.parseInt(cursor.getString(3)));
 
                 reviewList.add(review);
 
